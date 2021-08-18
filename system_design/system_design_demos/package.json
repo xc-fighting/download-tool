@@ -1,0 +1,23 @@
+{
+  "name": "system_design_demos",
+  "version": "1.0.0",
+  "description": "the demo examples for system design interview",
+  "main": "app.js",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "system",
+    "design",
+    "nodejs"
+  ],
+  "author": "Chen Xu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

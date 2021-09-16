@@ -51,3 +51,29 @@ public:
         return result;
     }
 };
+
+
+class Solution {
+
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int n = costs.size();
+        vector<vector<int>> memo(3,vector<int>(n,-1));
+        memo[0][n-1] = costs[n-1][0];
+        memo[1][n-1] = costs[n-1][1];
+        memo[2][n-1] = costs[n-1][2];
+        for(int i=n-2;i>=0;i--) {
+            //choose 0
+            memo[0][i] = costs[i][0] + min(memo[1][i+1],memo[2][i+1]);
+            //choose 1
+            memo[1][i] = costs[i][1] + min(memo[0][i+1],memo[2][i+1]);
+            //choose 2
+            memo[2][i] = costs[i][2] + min(memo[0][i+1],memo[1][i+1]);
+        }
+        
+        return min(memo[0][0],min(memo[1][0],memo[2][0]));
+        
+    }
+    
+   
+};

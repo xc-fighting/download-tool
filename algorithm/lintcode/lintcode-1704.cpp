@@ -43,3 +43,50 @@ public:
          return;
     }
 };
+
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+
+class Solution {
+public:
+    /**
+     * @param root: the root node
+     * @param L: an integer
+     * @param R: an integer
+     * @return: the sum
+     */
+    int rangeSumBST(TreeNode * root, int L, int R) {
+        // write your code here.
+       stack<TreeNode*> nodeStack;
+       TreeNode* cur = root;
+       int sum = 0;
+       while( cur != nullptr || nodeStack.empty() == false ) {
+           if( cur != nullptr ) {
+               nodeStack.push(cur);
+               cur = cur->left;
+           }
+           else {
+               TreeNode* topNode = nodeStack.top();
+               nodeStack.pop();
+               if( topNode->val >= L && topNode->val <= R) {
+                    sum += topNode->val;
+               }
+               
+               cur = topNode->right;
+           }
+       }
+       return sum;
+    }
+
+    
+};

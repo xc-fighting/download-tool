@@ -36,3 +36,32 @@ public:
  * Logger* obj = new Logger();
  * bool param_1 = obj->shouldPrintMessage(timestamp,message);
  */
+
+//use the end time directly
+class Logger {
+private:
+    unordered_map<string,int> msg_time;
+public:
+    Logger() {
+        
+    }
+    
+    bool shouldPrintMessage(int timestamp, string message) {
+        if(msg_time.find(message) == msg_time.end()) {
+            msg_time[message] = timestamp + 10;
+            return true;
+        }
+        if( timestamp < msg_time[message] ) {
+            return false;
+        }
+        
+        msg_time[message] = timestamp + 10;
+        return true;
+    }
+};
+
+/**
+ * Your Logger object will be instantiated and called as such:
+ * Logger* obj = new Logger();
+ * bool param_1 = obj->shouldPrintMessage(timestamp,message);
+ */

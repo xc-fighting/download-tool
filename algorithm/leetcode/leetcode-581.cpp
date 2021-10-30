@@ -81,3 +81,42 @@ public:
         return maxIndex - minIndex + 1;
     }
 };
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+       stack<int> indexStack;
+       int minIndex = INT_MAX;
+       int maxIndex = INT_MIN;
+       for(int index = 0; index < nums.size(); index++ ) {
+           if( indexStack.empty() == true ) {
+               indexStack.push(index);
+               continue;
+           }
+           if( nums[index] > nums[indexStack.top()] ) {
+                indexStack.push(index);
+           } 
+           else {
+               stack<int> tempbuffer;
+               while( indexStack.empty() == false 
+                     && nums[index] < nums[indexStack.top()]) {
+                   minIndex = min(indexStack.top(),minIndex);
+                   maxIndex = index;
+                   tempbuffer.push(indexStack.top());
+                   indexStack.pop();
+               }
+               if(indexStack.empty()==true) {
+                   minIndex = 0;
+               }
+               while(tempbuffer.empty()==false) {
+                   indexStack.push(tempbuffer.top());
+                   tempbuffer.pop();
+               }
+           }
+       }
+       if(minIndex == INT_MAX) {
+           return 0;
+       } 
+       return maxIndex - minIndex + 1;
+    }
+};

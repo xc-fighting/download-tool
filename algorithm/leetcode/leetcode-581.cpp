@@ -120,3 +120,41 @@ public:
        return maxIndex - minIndex + 1;
     }
 };
+
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int minVal = INT_MAX;
+        int maxVal = INT_MIN;
+        for( int index = 0; index < nums.size() - 1; index++ ) {
+            if( nums[index] <= nums[index+1] ) {
+                continue;
+            }
+            maxVal = max(maxVal, nums[index]);
+            minVal = min(minVal, nums[index+1]);
+        }
+        
+        int leftIdx = -1;
+        int rightIdx = -1;
+        for( int index = 0; index < nums.size(); index++ ) {
+             if( nums[index] > minVal ) {
+                 leftIdx = index;
+                 break;
+             }
+        }
+        
+        for( int index = nums.size() - 1; index >= 0; index-- ) {
+             if( nums[index] < maxVal ) {
+                 rightIdx = index;
+                 break;
+             }
+        }
+        
+        if(leftIdx == -1) {
+            return 0;
+        }
+        
+        return rightIdx - leftIdx + 1;
+    }
+};

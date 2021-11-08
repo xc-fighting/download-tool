@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/offworld/Desktop/download-tool/algorithm/advanced_algorithm/hybrid_a_star/hybrid_breadth_first.cpp
+math.h
+-
+iostream
+-
+vector
+-
+hybrid_breadth_first.h
+/home/offworld/Desktop/download-tool/algorithm/advanced_algorithm/hybrid_a_star/hybrid_breadth_first.h
+
+/home/offworld/Desktop/download-tool/algorithm/advanced_algorithm/hybrid_a_star/hybrid_breadth_first.h
+vector
+-
+
+/home/offworld/Desktop/download-tool/algorithm/advanced_algorithm/hybrid_a_star/main.cpp
+iostream
+-
+vector
+-
+hybrid_breadth_first.h
+/home/offworld/Desktop/download-tool/algorithm/advanced_algorithm/hybrid_a_star/hybrid_breadth_first.h
+

@@ -19,13 +19,15 @@ public:
     }
 
     void push(pair<int,int> elem) {
+       // cout<<"push data:"<<elem.first<<","<<elem.second<<endl;
         pq.push(elem);
     } 
 
     void pop() {
-       while( pq.empty() == false && deleteSet.count(pq.top().first) > 0 ) {
-            pq.pop();
+       while( pq.empty() == false && deleteSet.find(pq.top().first) != deleteSet.end() ) {
             deleteSet.erase(pq.top().first);
+            pq.pop();
+            
         }
         if(pq.empty() == true ) {
             return;
@@ -35,9 +37,11 @@ public:
     }
 
     pair<int,int> top() {
-        while( pq.empty() == false && deleteSet.count(pq.top().first) > 0 ) {
-            pq.pop();
+        while( pq.empty() == false && deleteSet.find(pq.top().first) != deleteSet.end() ) {
+            cout<<"get here=============="<<endl;
             deleteSet.erase(pq.top().first);
+            pq.pop();
+            
         }
         if( pq.empty() == true ) {
             return pair<int,int>(-1,-1);
@@ -46,6 +50,7 @@ public:
     }
 
     void Delete(int index) {
+         cout<<"insert index"<<index<<endl;
          deleteSet.insert(index);
     }
 
@@ -72,9 +77,11 @@ public:
         for( int index = 1; index < len; index++ ) {
             presum[index] = A[index] + presum[index-1];
         }
+        //cout<<presum[len-1]<<endl;
         Heap minHeap;
         int left = 0;
         for( int index = 0; index < A.size(); index++ ) {
+            cout<<"the index:"<<index<<endl;
             if( index < mid ) {
                 minHeap.push(pair<int,int>(index,presum[index]));
                 if( presum[index] >= k ) {
@@ -84,13 +91,14 @@ public:
             else {
                 //when it is larger or equal to mid
                 pair<int,int> topPair = minHeap.top();
-
+                cout<<"the top pair:"<<topPair.first<<"->"<<topPair.second<<endl;
                 int prevIndex = topPair.first;
-                int sum = presum[index] - presum[prevIndex];
+                int sum = presum[index] - topPair.second;
                 int len = index - prevIndex;
                 if( len <= mid && sum >= k ) {
                     return true;
                 }
+                
                 minHeap.Delete(left);
                 left++;
                 minHeap.push(pair<int,int>(index,presum[index]));
@@ -106,7 +114,9 @@ public:
         int minLen = 1;
         int maxLen = A.size();
         while( minLen + 1 < maxLen ) {
+            cout<<minLen<<","<<maxLen<<endl;
             int midLen = minLen + ( maxLen - minLen ) / 2;
+            cout<<"check len with:"<<midLen<<endl;
             if( check(A,K,midLen) == true ) {
                 //try to shorten the length
                 maxLen = midLen;

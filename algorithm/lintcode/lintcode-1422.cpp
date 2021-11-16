@@ -25,7 +25,7 @@ public:
                
                pair<string,int> startState(str,index);
                str = str + ":" + to_string(index);
-               stateDistance[str] = 1;
+               stateDistance[str] = 0;
                stateQueue.push(startState);
         }
        

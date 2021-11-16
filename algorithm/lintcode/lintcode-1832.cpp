@@ -5,19 +5,22 @@ public:
      * @return: return the minimum step from position 0 to position n - 1
      */
     vector<int> expand(unordered_map<int,vector<int>>& colorPoses, 
-                       unordered_set<int>& seen,
+                       unordered_set<int>& seen, unordered_set<int>& seenColor,
                        vector<int> &colors, 
                        int cur) {
         vector<int> result;
         int curColor = colors[cur];
-
-        for( int pos: colorPoses[curColor] ) {
+        if( seenColor.find(curColor) == seenColor.end() ) {
+              for( int pos: colorPoses[curColor] ) {
                 
                 if(seen.count(pos) == 0) {
                     result.push_back(pos);
                     seen.insert(pos);
                 }
-        }  
+              }
+              seenColor.insert(curColor);  
+        }
+        
         int prev = cur - 1;
         int next = cur + 1;
         if( prev >= 0 && seen.count(prev) == 0 ) {
@@ -48,7 +51,7 @@ public:
 
         queue<int> states;
         unordered_set<int> seen;
-        
+        unordered_set<int> seenColor;
         int step = 0;
         states.push(0);
         seen.insert(0);
@@ -62,7 +65,7 @@ public:
                    return step;
                }
                
-               vector<int> next = expand(colorPoses,seen,colors,pos);
+               vector<int> next = expand(colorPoses,seen,seenColor,colors,pos);
                for(int nextPos: next) {
                    states.push(nextPos);
                }

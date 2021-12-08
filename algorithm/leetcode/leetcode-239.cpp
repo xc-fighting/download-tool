@@ -32,3 +32,37 @@ public:
         return result;
     }
 };
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> result;
+        deque<int> indices;
+        //this is monolithic queue keep the values from 
+        // largest to smaller with index increasingly
+        for(int idx = 0; idx < k; idx++) {
+            
+            while(indices.empty() == false && nums[idx] > nums[indices.back()]) {
+                indices.pop_back();
+            }
+            
+            indices.push_back(idx);
+        }
+        result.push_back(nums[indices.front()]);
+        int start = 0;
+        for(int idx = k; idx < nums.size(); idx++) {
+            if(start == indices.front()) {
+                indices.pop_front();
+            }
+            start++;
+            while(indices.empty() == false && nums[idx] > nums[indices.back()]) {
+                indices.pop_back();
+            }
+            
+            indices.push_back(idx);
+            result.push_back(nums[indices.front()]);
+            
+        }
+        return result;
+    }
+};

@@ -35,3 +35,34 @@ public:
         return profit;
     }
 };
+
+
+//tle solution 2
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int len = prices.size();
+        vector<int> memo(len, 0);
+        //memo[i] means max profit can get when sell at i
+        for(int day = 1; day < len; day++) {
+            int curPrice = prices[day];
+            for(int buy = 0; buy < day; buy++) {
+                if(curPrice > prices[buy]) {
+                    int curProfit = curPrice - prices[buy];
+                    memo[day] = max(memo[day], curProfit);
+                    for(int old = 0; old < buy; old++) {
+                        memo[day] = max(memo[day], curProfit + memo[old]);
+                    }
+                }
+            }
+        }
+        
+        int res = 0;
+        for(int day = 0; day < len; day++) {
+            res = max(res, memo[day]);
+        }
+        return res;
+    }
+};
+
+

@@ -36,3 +36,36 @@ public:
         return result;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLongestSubstringKDistinct(string s, int k) {
+        int left = 0;
+        int right = 0;
+        //[left, right) keeps a window of substring which
+        //contains at most k distinct
+        vector<int> charFreq(256, 0);
+        int count = 0;
+        int ans = 0;
+        while(left < s.size()) {
+            while(right < s.size() && count <= k) {
+                char newChar = s[right];
+                charFreq[newChar]++;
+                if(charFreq[newChar] == 1) {
+                    count++;
+                }
+                if(count <= k) {
+                    ans = max(ans, right-left+1);
+                }
+                right++;
+            }
+            
+            charFreq[s[left]]--;
+            if(charFreq[s[left]] == 0) {
+                count--;
+            }
+            left++;
+        }
+        return ans;
+    }
+};
